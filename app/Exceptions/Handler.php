@@ -45,18 +45,18 @@ class Handler extends ExceptionHandler
     protected function invalidJson($request, ValidationException $exception)
     {
         return response()->json([
-            'respuesta' => __('Los datos proporcionados no son válidos.'),
-            'errores' => $exception->errors(),
+            'res' => __('Los datos proporcionados no son válidos.'),
+            'msg' => $exception->errors(),
         ], $exception->status);
     }
 
     public function render($request, Throwable $exception)
     {
         if($exception instanceof ModelNotFoundException){
-            return response()->json(["res" => false, "error" => "Error modelo no encontrado"], 400);
+            return response()->json(["res" => false, "msg" => "Error modelo no encontrado"], 400);
         }
         if($exception instanceof RouteNotFoundException){
-            return response()->json(["res" => false, "error" => "No tiene permisos para acceder a esta ruta"], 401);
+            return response()->json(["res" => false, "msg" => "No tiene permisos para acceder a esta ruta"], 401);
         }
         return parent::render($request, $exception);
     }

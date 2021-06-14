@@ -34,6 +34,7 @@ class AutenticarController extends Controller
 
 	    if (! $user || ! Hash::check($request->password, $user->password)) {
 	        throw ValidationException::withMessages([
+                'res' => true,
 	            'msg' => ['Las credenciales son incorrectas!!!'],
 	        ]);
 	    }
@@ -42,8 +43,10 @@ class AutenticarController extends Controller
 
 	    return response()->json([
 	    	'res' => true,
-	    	'token' => $token,
-            'usuario' => $user
+	    	'msg' => [ 
+                'token' =>$token,
+                'usuario' => $user
+            ]
 	    ],200);
     }
 
