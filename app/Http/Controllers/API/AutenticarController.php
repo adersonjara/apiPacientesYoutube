@@ -30,7 +30,7 @@ class AutenticarController extends Controller
 
     public function acceso(AccesoRequest $request)
     {
-    	$user = User::where('email', $request->email)->first();
+    	$user = User::with('roles')->where('email', $request->email)->first();
 
 	    if (! $user || ! Hash::check($request->password, $user->password)) {
 	        throw ValidationException::withMessages([
